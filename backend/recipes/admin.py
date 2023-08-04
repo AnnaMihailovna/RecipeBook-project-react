@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from recipes.models import (
-    ElectedRecipe,
+    FavoriteRecipe,
     Ingredient,
     Recipe,
     RecipeIngredient,
@@ -43,6 +43,7 @@ class RecipeAdmin(admin.ModelAdmin):
         'id',
         'title',
         'author',
+        'pub_date',
         'in_elected',
     )
     list_filter = ('title', 'author', 'tags',)
@@ -55,7 +56,7 @@ class RecipeAdmin(admin.ModelAdmin):
         return obj.in_elected.all().count()
 
 
-class ElectedRecipeAdmin(admin.ModelAdmin):
+class FavoriteRecipeAdmin(admin.ModelAdmin):
     """Отображение модели избранных пользователем рецептов в админке."""
     list_display = ('id', 'user', 'recipe',)
     empty_value_display = '-пусто-'
@@ -88,7 +89,7 @@ class RecipeTagAdmin(admin.ModelAdmin):
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(ElectedRecipe, ElectedRecipeAdmin)
+admin.site.register(FavoriteRecipe, FavoriteRecipeAdmin)
 admin.site.register(RecipeShoppingList, RecipeShoppingListAdmin)
 admin.site.register(RecipeIngredient, RecipeIngredientsAdmin)
 admin.site.register(RecipeTag, RecipeTagAdmin)

@@ -112,9 +112,13 @@ class Recipe(models.Model):
         verbose_name='Время приготовления',
         help_text='Укажите время приготовления блюда в минутах',
     )
+    pub_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата публикации'
+    )
 
     class Meta:
-        ordering = ('-id',)
+        ordering = ('-pub_date',)
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
 
@@ -184,7 +188,7 @@ class RecipeTag(models.Model):
         return f'Тег {self.tag} в рецепте {self.recipe}'
 
 
-class ElectedRecipe(models.Model):
+class FavoriteRecipe(models.Model):
     """Модель рецептов избранного списка."""
     user = models.ForeignKey(
         User,

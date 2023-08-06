@@ -8,18 +8,16 @@ LEN_OF_STR_METHOD_IN_RECIPE = 50
 User = get_user_model()
 
 class Tag(models.Model):
-    """Модель тегов."""
+    """Модель тега."""
     name = models.CharField(
         max_length=50,
         verbose_name='Название тега',
         unique=True,
-        help_text='Название тега',
     )
     color = ColorField(
         default='#FF0000',
         verbose_name='Цвет в HEX',
         unique=True,
-        help_text='Выберите цвет',
     )
     slug = models.SlugField(
         verbose_name='Слаг',
@@ -42,17 +40,15 @@ class Tag(models.Model):
 
 
 class Ingredient(models.Model):
-    """Модель ингредиентов."""
+    """Модель ингредиента."""
     name = models.CharField(
         verbose_name='Название',
         max_length=200,
-        help_text='Введите название ингредиента',
         db_index=True,
     )
     unit = models.CharField(
         verbose_name='Единица измерения',
         max_length=50,
-        help_text='Выберите единицу измерения',
     )
 
     class Meta:
@@ -70,24 +66,21 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    """Модель рецептов."""
+    """Модель рецепта."""
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='recipes',
         verbose_name='Автор рецепта',
-        help_text='Автор рецепта',
     )
     title = models.CharField(
         verbose_name='Название рецепта',
         max_length=200,
         unique=True,
-        help_text='Укажите название рецепта',
     )
     image = models.ImageField(
         verbose_name='Фото блюда',
         upload_to='recipes/',
-        help_text='Загрузите фото готового блюда',
     )
     description = models.TextField(verbose_name='Описание рецепта')
     ingredients = models.ManyToManyField(
@@ -95,14 +88,12 @@ class Recipe(models.Model):
         through='RecipeIngredient',
         related_name='recipe',
         verbose_name='Ингредиенты рецепта',
-        help_text='Выберите нужные ингредиенты',
     )
     tags = models.ManyToManyField(
         Tag,
         through='RecipeTag',
         verbose_name='Теги',
         related_name='recipe',
-        help_text='Выберите теги',
     )
     cook_time = models.PositiveSmallIntegerField(
         validators=(MinValueValidator(
@@ -110,7 +101,6 @@ class Recipe(models.Model):
             message='Время не менее 1 минуты!',
         ),),
         verbose_name='Время приготовления',
-        help_text='Укажите время приготовления блюда в минутах',
     )
     pub_date = models.DateTimeField(
         auto_now_add=True,
@@ -127,7 +117,7 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    """Модель, связывающая рецепты с ингредиентами."""
+    """Модель, связывающая рецепт с ингредиентами."""
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
@@ -144,7 +134,6 @@ class RecipeIngredient(models.Model):
             message='Укажите количество не меньше 1!',
         ),),
         verbose_name='Количество единиц ингредиента',
-        help_text='Введите количество больше нуля',
     )
 
     class Meta:
@@ -189,7 +178,7 @@ class RecipeTag(models.Model):
 
 
 class FavoriteRecipe(models.Model):
-    """Модель рецептов избранного списка."""
+    """Модель рецепта из избранного списка."""
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -222,7 +211,7 @@ class FavoriteRecipe(models.Model):
 
 
 class RecipeShoppingList(models.Model):
-    """Модель рецептов для списка покупок."""
+    """Модель рецепта, входящего в список покупок."""
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,

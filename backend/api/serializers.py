@@ -6,12 +6,11 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueTogetherValidator
 
 from recipes.models import (
-    # FavoriteRecipe,
+    FavoriteRecipe,
     Ingredient,
     Recipe,
     RecipeIngredient,
-    # RecipeShoppingList,
-    # RecipeTag,
+    RecipeShoppingList,
     Tag
 )
 from users.models import Follow
@@ -270,3 +269,70 @@ class FollowSerializer(serializers.ModelSerializer):
         ]
 
 
+class FavoriteRecipeSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для работы с моделью рецепта
+    в списке избранного.
+    """
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        write_only=True,
+    )
+    recipe = serializers.PrimaryKeyRelatedField(
+        queryset=Recipe.objects.all(),
+        write_only=True,
+    )
+
+    class Meta:
+        model = FavoriteRecipe
+        fields = ('user', 'recipe')
+
+    def validate(self, data):
+        """Валидация при добавлении рецепта в избранное."""
+        user, recipe = data['user'], data['recipe']
+        if FavoriteRecipe.objects.filter(user=user,
+                                         recipe=recipe).exists():
+            raise ValidationError(
+                'Рецепт уже добавлен в избранное!'
+            )
+        return data
+
+    def to_representation(self, instance):
+        """Отображение добавленного в избранное рецепта."""
+        request = self.context.get('request')
+        context = {'request': request}
+        return RecipeShortSerializer(
+            instance.recipe,
+            context=context
+        ).data
+
+
+class RecipeShoppingListSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для работы с моделью рецепта
+    в списке покупок.
+    """
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
+
+    class Meta:
+        model = RecipeShoppingList
+        fields = ('user', 'recipe')
+    
+    def validate(self, data):
+        """Валидация при добавлении рецепта в список покупок."""
+        user, recipe = data['user'], data['recipe']
+        if RecipeShoppingList.objects.filter(user=user, recipe=recipe).exists():
+            raise serializers.ValidationError(
+                'Рецепт уже добавлен в список покупок!'
+            )
+        return data
+
+    def to_representation(self, instance):
+        """Отображение добавленного в список покупок рецепта."""
+        request = self.context.get('request')
+        context = {'request': request}
+        return RecipeShortSerializer(
+            instance.recipe,
+            context=context
+        ).data

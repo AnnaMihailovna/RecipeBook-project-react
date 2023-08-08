@@ -56,7 +56,7 @@ class CustomUserSerializer(UserSerializer):
             return False
         # return Follow.objects.filter(user=self.context['request'].user,
         #                              author=obj).exists()
-        return obj.following.filter(user=request.user).exists()
+        return obj.follower.filter(user=request.user).exists()
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -138,7 +138,7 @@ class IngredientAddRecipeSerializer(serializers.ModelSerializer):
 
 
 class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
-    """Сериализатор для добавления и обновления рецепта."""
+    """Сериализатор для добавления/удаления и обновления рецепта."""
     ingredients = IngredientAddRecipeSerializer(many=True)
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(),
@@ -212,7 +212,7 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
         return RecipeSerializer(recipe, context=context).data
 
 
-class SubscribedSerializer(CustomUserSerializer):
+class SubscriptionsSerializer(CustomUserSerializer):
     """Сериализатор для работы с подписками."""
     recipes = serializers.SerializerMethodField(read_only=True)
     recipes_count = serializers.SerializerMethodField(read_only=True)

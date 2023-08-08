@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.db import models
 
-LEN_OF_STR_METHOD_IN_RECIPE = 50
-
 User = get_user_model()
 
 class Tag(models.Model):
@@ -80,7 +78,7 @@ class Recipe(models.Model):
     )
     image = models.ImageField(
         verbose_name='Фото блюда',
-        upload_to='recipes/',
+        upload_to='recipes/images/',
     )
     description = models.TextField(verbose_name='Описание рецепта')
     ingredients = models.ManyToManyField(
@@ -113,7 +111,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self):
-        return f'{self.title}[:LEN_OF_STR_METHOD_IN_RECIPE]'
+        return self.title
 
 
 class RecipeIngredient(models.Model):

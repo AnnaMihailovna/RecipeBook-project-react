@@ -10,6 +10,7 @@ from recipes.models import (
     Tag
 )
 
+
 class TagAdmin(admin.ModelAdmin):
     """Отображение модели тегов в админке."""
     list_display = (
@@ -27,6 +28,7 @@ class IngredientAdmin(admin.ModelAdmin):
         'unit',
     )
     list_filter = ('name',)
+    search_fields = ('name',)
     ordering = ('name',)
     empty_value_display = '-пусто-'
 
@@ -41,29 +43,36 @@ class RecipeAdmin(admin.ModelAdmin):
     """Отображение модели рецептов в админке."""
     list_display = (
         'id',
-        'title',
+        'name',
         'author',
         'pub_date',
-        'in_elected',
+        'elected',
     )
-    list_filter = ('title', 'author', 'tags',)
-    readonly_fields = ('in_elected',)
+    list_filter = ('name', 'author', 'tags',)
+    readonly_fields = ('elected',)
     inlines = (RecipeIngredientsInline,)
     empty_value_display = '-пусто-'
 
-    def in_elected(self, obj):
-        """Общее число добавлений рецепта в избранное."""
-        return obj.in_elected.all().count()
+    def elected(self, obj):
+        """
+        Общее число добавлений рецепта в избранное.
+        """
+        return obj.elected.all().count()
 
 
 class FavoriteRecipeAdmin(admin.ModelAdmin):
-    """Отображение модели избранных пользователем рецептов в админке."""
+    """
+    Отображение модели избранных пользователем
+    рецептов в админке.
+    """
     list_display = ('id', 'user', 'recipe',)
     empty_value_display = '-пусто-'
 
 
 class RecipeShoppingListAdmin(admin.ModelAdmin):
-    """Отображение модели рецептов из списка покупок в админке."""
+    """
+    Отображение модели рецептов из списка покупок в админке.
+    """
     list_display = ('id', 'user', 'recipe',)
     empty_value_display = '-пусто-'
 
@@ -82,7 +91,7 @@ class RecipeTagAdmin(admin.ModelAdmin):
     Отображение вспомогающей модели связи рецептов
     и тегов в админке.
     """
-    list_display = ('id', 'recipe',  'tag',)
+    list_display = ('id', 'recipe', 'tag',)
     list_filter = ('recipe', 'tag',)
 
 

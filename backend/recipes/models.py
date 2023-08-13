@@ -5,6 +5,7 @@ from django.db import models
 
 User = get_user_model()
 
+
 class Tag(models.Model):
     """Модель тега."""
     name = models.CharField(
@@ -71,7 +72,7 @@ class Recipe(models.Model):
         related_name='recipes',
         verbose_name='Автор рецепта',
     )
-    title = models.CharField(
+    name = models.CharField(
         verbose_name='Название рецепта',
         max_length=200,
         unique=True,
@@ -80,7 +81,7 @@ class Recipe(models.Model):
         verbose_name='Фото блюда',
         upload_to='recipes/images/',
     )
-    description = models.TextField(verbose_name='Описание рецепта')
+    text = models.TextField(verbose_name='Описание рецепта')
     ingredients = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredient',
@@ -93,7 +94,7 @@ class Recipe(models.Model):
         verbose_name='Теги',
         related_name='recipe',
     )
-    cook_time = models.PositiveSmallIntegerField(
+    cooking_time = models.PositiveSmallIntegerField(
         validators=(MinValueValidator(
             1,
             message='Время не менее 1 минуты!',
@@ -111,7 +112,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class RecipeIngredient(models.Model):
@@ -149,6 +150,7 @@ class RecipeIngredient(models.Model):
             f'{self.amount} {self.ingredient.unit}'
         )
 
+
 class RecipeTag(models.Model):
     """Модель связи рецепта и тега."""
     recipe = models.ForeignKey(
@@ -161,6 +163,7 @@ class RecipeTag(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Тег',
     )
+
     class Meta:
         constraints = [
             models.UniqueConstraint(
@@ -220,7 +223,7 @@ class RecipeShoppingList(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
-        related_name='shopping',
+        related_name='shopping_user',
     )
 
     class Meta:

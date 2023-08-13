@@ -6,10 +6,12 @@ from .models import Follow
 
 User = get_user_model()
 
+
 class UserAdmin(admin.ModelAdmin):
     """Отображение модели пользователя в админке."""
     list_display = ('pk', 'username', 'email', 'first_name', 'last_name')
     list_filter = ('email', 'first_name')
+    search_fields = ('email', 'first_name')
     ordering = ('username',)
     empty_value_display = '-пусто-'
 

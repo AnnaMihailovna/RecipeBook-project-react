@@ -14,6 +14,7 @@ MODELS_FILES = {
 class Command(BaseCommand):
     """Добавляем ингредиенты в базу из файла CSV. """
     help = 'Импорт данных из файла csv в БД'
+
     def handle(self, *args, **kwargs):
         for model, file in MODELS_FILES.items():
             with open(

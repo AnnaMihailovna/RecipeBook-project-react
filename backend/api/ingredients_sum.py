@@ -13,5 +13,5 @@ def get_ingredients(user):
         name=F('ingredient__name'),
         unit=F('ingredient__unit')
     ).annotate(amount=Sum('amount')).values_list(
-        'ingredient__name', 'amount', 'ingredient__unit')
+        'ingredient__name', 'ingredient__unit', 'amount')
     return ingredients

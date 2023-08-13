@@ -14,17 +14,17 @@ admin
 admin@admin.xx
 1234
 
-### Тустовые пользователи:
-user3
-user3@user.xx
+### Тестовые пользователи:
+user3 \n
+user3@user.xx \n
 user3new
 
 --------------------------
-user7
-user7@user.xx
+user7 \n
+user7@user.xx \n
 user7123456
 
 --------------------------
-user9
-user9@user.xx
+user9 \n
+user9@user.xx \n
 user9123456

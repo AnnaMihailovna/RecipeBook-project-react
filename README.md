@@ -10,9 +10,11 @@
                 деплой на удаленный сервер через GitHub Actions.
 
 ### Суперпользователь:
-admin
-admin@admin.xx
+'''
+admin \n
+admin@admin.xx \n
 1234
+'''
 
 ### Тестовые пользователи:
 user3 \n

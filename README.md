@@ -10,23 +10,21 @@
                 деплой на удаленный сервер через GitHub Actions.
 
 ### Суперпользователь:
-,,,
-admin \n
-admin@admin.xx \n
-1234
-,,,
+Логин: ```admin``` 
+Email: ```admin@admin.xx```  
+Пароль: ```1234``` 
 
 ### Тестовые пользователи:
-user3 \n
-user3@user.xx \n
-user3new
+Логин: ```user3```  
+Email: ```user3@user.xx```  
+Пароль: ```user3new```
 
 --------------------------
-user7 \n
-user7@user.xx \n
-user7123456
+Логин: ```user7```  
+Email: ```user7@user.xx```  
+Пароль: ```user7123456```
 
 --------------------------
-user9 \n
-user9@user.xx \n
-user9123456
+Логин: ```user9```  
+Email: ```user9@user.xx```  
+Пароль: ```user9123456```

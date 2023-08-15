@@ -98,11 +98,11 @@ class Recipe(models.Model):
         validators=[MinValueValidator(
             1,
             message='Время не менее 1 минуты!'
-            ),
+        ),
             MaxValueValidator(
             480,
             message='Время приготовления не более 8 часов!'
-            )
+        )
         ],
         verbose_name='Время приготовления',
     )
@@ -136,11 +136,11 @@ class RecipeIngredient(models.Model):
         validators=[MinValueValidator(
             1,
             message='Укажите количество не меньше 1!',
-            ),
+        ),
             MaxValueValidator(
             5000,
             message='Укажите количество не более 5000!'
-            )
+        )
         ],
         verbose_name='Количество единиц ингредиента',
     )

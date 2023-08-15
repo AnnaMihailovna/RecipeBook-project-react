@@ -335,7 +335,7 @@ class RecipeShoppingListSerializer(serializers.ModelSerializer):
     Сериализатор для работы с моделью рецепта
     в списке покупок.
     """
-    
+
     class Meta:
         model = RecipeShoppingList
         fields = ('id', 'user', 'recipe')

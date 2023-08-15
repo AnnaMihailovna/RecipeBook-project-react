@@ -20,14 +20,14 @@ class RecipeFilter(FilterSet):
     author = filters.AllValuesMultipleFilter(
         field_name='author__id',
     )
+    is_favorited = filters.BooleanFilter(
+        method='get_is_favorited',
+        label='favorite',
+    )
     tags = filters.ModelMultipleChoiceFilter(
         field_name='tags__slug',
         to_field_name='slug',
         queryset=Tag.objects.all(),
-    )
-    is_favorited = filters.BooleanFilter(
-        method='get_is_favorited',
-        label='favorite',
     )
     is_in_shopping_cart = filters.BooleanFilter(
         method='get_is_in_shopping_cart',
@@ -47,9 +47,9 @@ class RecipeFilter(FilterSet):
     def get_is_favorited(self, queryset, name, value):
         """Рецепты, находящиеся в списке избранного."""
         if value:
-            return Recipe.objects.filter(
+            return queryset.filter(
                 elected__user=self.request.user
-            ).all()
+            )
         return queryset.exclude(
             elected__user=self.request.user
         )
@@ -59,4 +59,4 @@ class RecipeFilter(FilterSet):
         if value:
             return Recipe.objects.filter(
                 shopping__user=self.request.user
-            ).all()
+            )

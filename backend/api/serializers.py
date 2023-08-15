@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.db import transaction
 from drf_base64.fields import Base64ImageField
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers, status
@@ -13,9 +13,7 @@ from recipes.models import (
     RecipeShoppingList,
     Tag
 )
-from users.models import Follow
-
-User = get_user_model()
+from users.models import Follow, User
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):
@@ -187,13 +185,6 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
             )
         return ingredients
 
-    def validate_cook_time(value):
-        if value <= 0:
-            raise ValidationError(
-                'Время приготовления должно быть больше нуля!'
-            )
-        return value
-
     def _add_ingredients(self, recipe, ingredients):
         """Добавление ингредиентов в рецепт."""
         RecipeIngredient.objects.bulk_create(
@@ -204,6 +195,7 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
             ) for ingredient in ingredients
         )
 
+    @transaction.atomic
     def create(self, validated_data):
         """"Добавление рецепта."""
         author = self.context.get('request').user
@@ -216,6 +208,7 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
         self._add_ingredients(recipe, ingredients)
         return recipe
 
+    @transaction.atomic
     def update(self, recipe, validated_data):
         """"Обновление рецепта."""
         tags = validated_data.pop('tags')
@@ -342,13 +335,7 @@ class RecipeShoppingListSerializer(serializers.ModelSerializer):
     Сериализатор для работы с моделью рецепта
     в списке покупок.
     """
-    user = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(),
-    )
-    recipe = serializers.PrimaryKeyRelatedField(
-        queryset=Recipe.objects.all()
-    )
-
+    
     class Meta:
         model = RecipeShoppingList
         fields = ('id', 'user', 'recipe')

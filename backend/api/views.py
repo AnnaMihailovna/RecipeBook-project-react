@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -21,10 +20,8 @@ from .serializers import (
 from .filters import IngredientFilter, RecipeFilter
 from .permissions import AuthorOnly
 from recipes.models import Ingredient, Recipe, Tag
-from users.models import Follow
-from .ingredients_sum import get_ingredients
-
-User = get_user_model()
+from users.models import Follow, User
+from .services import get_ingredients
 
 
 class CustomUserViewSet(UserViewSet):

@@ -14,8 +14,7 @@ services:
       - pg_data:/var/lib/postgresql/data/
 
   backend:
-    # image: nadezh/recipebook_backend
-    build: ../backend/
+    image: nadezh/recipebook_backend
     env_file: ../.env
     volumes:
       - static:/app/backend_static/static
@@ -24,16 +23,14 @@ services:
       - db
 
   frontend:
-    # image: nadezh/recipebook_frontend
-    build: ../frontend/
+    image: nadezh/recipebook_frontend
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
       - backend
 
   nginx:
-    # image: nginx:1.19.3
-    build: .
+    image: nadezh/recipebook_nginx
     env_file: ../.env
     ports:
       - "7000:80"

@@ -47,26 +47,28 @@ Email: ```admin@admin.xx```
 Пароль: ```1234``` 
 
 ### Тестовые пользователи:
-Логин: ```user3```  
+Логин: ```user3new```  
 Email: ```user3@user.xx```  
-Пароль: ```user3new```
+Пароль: ```user3123456```
 
 --------------------------
-Логин: ```user7```  
+Логин: ```user7new```  
 Email: ```user7@user.xx```  
 Пароль: ```user7123456```
 
 --------------------------
-Логин: ```user9```  
+Логин: ```user9new```  
 Email: ```user9@user.xx```  
 Пароль: ```user9123456```
 
 ## Ссылки
 ### Документация API проекта:
-http://84.252.140.107/api/docs/redoc.html
-### Развёрнутый проект:
-http://84.252.140.107
-http://84.252.140.107/admin/
+http://recipebook.hopto.org/api/docs/redoc.html
 
-## Автор бэкенда и деплой
+### Развёрнутый проект:
+http://recipebook.hopto.org
+
+http://recipebook.hopto.org/admin/
+
+### Автор бэкенда и деплой
 [AnnaMihailovna](https://github.com/AnnaMihailovna/)

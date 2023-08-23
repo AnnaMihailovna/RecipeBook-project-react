@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('TOKEN', 'default-token')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['84.252.140.107', 'localhost', '127.0.0.1', 'recipebook.hopto.org']
 
 
 # Application definition
@@ -157,3 +157,5 @@ DJOSER = {
         'user_list': ['rest_framework.permissions.AllowAny'],
     },
 }
+
+CSRF_TRUSTED_ORIGINS = ['https://recipebook.hopto.org']

@@ -1,4 +1,4 @@
-name: Main Taski Workflow
+name: Main RecipeBook Workflow
 
 on:
   push:

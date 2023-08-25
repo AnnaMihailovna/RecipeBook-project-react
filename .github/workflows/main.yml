@@ -98,8 +98,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         # Это параметр воркфлоу, указывающий нужную версию Node.js
-        node-version: 18
-        # node-version: 14.21.3-alpine
+        # node-version: 18
+        node-version: 14.21.3
 
     - name: Install dependencies
       # Эта команда устанавливает зависимости для фронтенда

@@ -112,7 +112,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: 
-      # Дождёмся билда всех образов Taski
+      # Дождёмся билда всех образов RecipeBook
       - build_and_push_to_docker_hub
       - build_gateway_and_push_to_docker_hub
     steps:
@@ -128,7 +128,8 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: "docker-compose.production.yml"
-        target: "recipebook-project"
+        # target: "recipebook-project"
+        target: "infra"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:

@@ -14,7 +14,7 @@ class RecipeBookAPITestCase(TestCase):
 
     def test_list_exists(self):
         """Проверка доступности списка рецептов."""
-        response = self.guest_client.get('/api/resipes/')
+        response = self.guest_client.get('/api/recipes/')
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     # def test_recipe_creation(self):

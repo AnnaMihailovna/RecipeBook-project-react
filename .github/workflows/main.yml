@@ -110,7 +110,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/recipebook_nginx:latest
 
   deploy:
-    
+
     runs-on: ubuntu-latest
     needs: 
       # Дождёмся билда всех образов RecipeBook
@@ -128,9 +128,9 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "docker-compose.production.yml"
+        source: "infra/docker-compose.production.yml"
         # target: "recipebook-project"
-        target: "infra"
+        target: "recipebook-project/infra"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:

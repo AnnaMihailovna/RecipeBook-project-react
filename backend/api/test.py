@@ -4,6 +4,7 @@ from django.test import Client, TestCase
 
 from users.models import User
 
+
 class RecipeBookAPITestCase(TestCase):
     def setUp(self):
         # self.guest_client = Client()

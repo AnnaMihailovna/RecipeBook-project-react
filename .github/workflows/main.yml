@@ -3,7 +3,7 @@ name: Main RecipeBook Workflow
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   checkout-and-print-tree:

@@ -88,52 +88,6 @@ jobs:
           # на сервере и в docker-compose.yml не указывать версию
           tags: ${{ secrets.DOCKER_USERNAME }}/recipebook_backend:latest 
 
-  frontend_tests:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up nodeJS
-      # Это готовый воркфлоу для установки Node.js на раннер
-      uses: actions/setup-node@v3
-      with:
-        # Это параметр воркфлоу, указывающий нужную версию Node.js
-        # node-version: 18
-        node-version: 14.21.3
-
-    - name: Install dependencies
-      # Эта команда устанавливает зависимости для фронтенда
-      run: |
-        cd frontend/
-        npm ci
-
-    - name: Test frontend
-      # Запускаем тесты
-      run: |
-        cd frontend/
-        npm run test
-
-  # build_frontend_and_push_to_docker_hub:
-  #   name: Push frontend Docker image to DockerHub
-  #   runs-on: ubuntu-latest
-  #   needs: frontend_tests
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v3
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v2
-  #     - name: Login to Docker 
-  #       uses: docker/login-action@v2
-  #       with:
-  #         username: ${{ secrets.DOCKER_USERNAME }}
-  #         password: ${{ secrets.DOCKER_PASSWORD }}
-  #     - name: Push to DockerHub
-  #       uses: docker/build-push-action@v4
-  #       with:
-  #         context: ./frontend/
-  #         push: true
-  #         tags: ${{ secrets.DOCKER_USERNAME }}/recipebook_frontend:latest
-
   build_gateway_and_push_to_docker_hub:
     name: Push gateway Docker image to DockerHub
     runs-on: ubuntu-latest

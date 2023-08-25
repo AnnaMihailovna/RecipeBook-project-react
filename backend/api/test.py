@@ -9,7 +9,12 @@ from users.models import User
 class RecipeBookAPITestCase(TestCase):
     def setUp(self):
         # self.guest_client = Client()
-        self.user = User.objects.create_user(email='admin')
+        self.user = User.objects.create_user(email="vpupkin@yandex.ru",
+                                             username="vasya.pupkin",
+                                             first_name="Вася",
+                                             last_name="Пупкин",
+                                             password="Qwerty123"
+                                             )
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)
 
@@ -20,11 +25,12 @@ class RecipeBookAPITestCase(TestCase):
 
     def test_recipe_creation(self):
         """Проверка создания рецепта."""
-        data = {"email": "vpupkin@yandex.ru",
-                "username": "vasya.pupkin",
-                "first_name": "Вася",
-                "last_name": "Пупкин",
-                "password": "Qwerty123"}
+        data = {"ingredients": [{}], 
+                "tags": [],
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+                "name": "string",
+                "text": "string",
+                "cooking_time": 1}
         response = self.authorized_client.post('/api/pecipe/', data=data)
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
         self.assertTrue(

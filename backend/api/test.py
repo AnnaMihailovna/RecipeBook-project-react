@@ -27,4 +27,6 @@ class RecipeBookAPITestCase(TestCase):
                 "password": "Qwerty123"}
         response = self.guest_client.post('/api/pecipe/', data=data)
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
-        self.assertTrue(Recipe.objects.filter(username='vasya.pupkin').exists())
+        self.assertTrue(
+            Recipe.objects.filter(username='vasya.pupkin').exists()
+        )

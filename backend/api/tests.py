@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 from django.test import Client, TestCase
 
-from recipes.models import Recipe
+# from recipes.models import Recipe
 # from users.models import User
 
 

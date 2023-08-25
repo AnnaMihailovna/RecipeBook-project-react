@@ -22,6 +22,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip 
         pip install flake8==6.0.0
+        pip install -r ./backend/requirements.txt
 
-    - name: Test with flake8
-      run: python -m flake8 backend/
+    - name: Test with flake8 and django tests
+      run: |
+        python -m flake8 backend/
+        cd backend/recipebook/
+        python manage.py test

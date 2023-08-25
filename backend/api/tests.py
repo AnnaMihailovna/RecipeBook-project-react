@@ -27,7 +27,9 @@ class RecipeBookAPITestCase(TestCase):
         """Проверка создания рецепта."""
         data = {"ingredients": [{}],
                 "tags": [],
-                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+                "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU\
+                gAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAA\
+                CXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
                 "name": "string",
                 "text": "string",
                 "cooking_time": 1}

@@ -108,3 +108,45 @@ jobs:
           push: true
           # Тут вместо username должен быть ваш логин на Docker Hub
           tags: ${{ secrets.DOCKER_USERNAME }}/recipebook_nginx:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: 
+      # Дождёмся билда всех образов Taski
+      - build_and_push_to_docker_hub
+      - build_gateway_and_push_to_docker_hub
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    # Копируем docker-compose.production.yml на продакшен-сервер
+    - name: Copy docker-compose.production.yml via ssh
+      uses: appleboy/scp-action@master
+    # Передаём параметры для action appleboy/scp-action:
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        source: "docker-compose.production.yml"
+        target: "recipebook-project"
+    - name: Executing remote ssh commands to deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        # Параметр script передаёт в action appleboy/ssh-action команды,
+        # которые нужно выполнить на сервере, 
+        # с которым установлено соединение
+        script: |
+          cd recipebook-project/infra
+          # Выполняет pull образов с Docker Hub
+          sudo docker compose -f docker-compose.production.yml pull
+          # Перезапускает все контейнеры в Docker Compose
+          sudo docker compose -f docker-compose.production.yml down
+          sudo docker compose -f docker-compose.production.yml up -d
+          # Выполняет миграции и сбор статики
+          sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+          sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
+          sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/

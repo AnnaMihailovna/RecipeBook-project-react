@@ -29,7 +29,8 @@ class RecipeBookAPITestCase(TestCase):
                 "tags": [],
                 "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEU\
                 gAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAA\
-                CXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
+                CXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAA\
+                ggCByxOyYQAAAABJRU5ErkJggg==",
                 "name": "string",
                 "text": "string",
                 "cooking_time": 1}

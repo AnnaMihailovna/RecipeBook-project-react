@@ -25,7 +25,7 @@ class RecipeBookAPITestCase(TestCase):
 
     def test_recipe_creation(self):
         """Проверка создания рецепта."""
-        data = {"ingredients": [{}], 
+        data = {"ingredients": [{}],
                 "tags": [],
                 "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==",
                 "name": "string",

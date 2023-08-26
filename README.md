@@ -43,6 +43,7 @@ docker compose exec backend python manage.py import
 
 ### Суперпользователь:
 Логин: ```admin``` 
+
 Email: ```admin@admin.xx```  
 Пароль: ```1234``` 
 

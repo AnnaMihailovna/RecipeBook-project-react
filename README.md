@@ -20,7 +20,7 @@
 ### Запуск проекта в контейнерах
 - Клонирование удаленного репозитория
 ```bash
-git@github.com:AnnaMihailovna/foodgram-project-react.git
+git@github.com:AnnaMihailovna/RecipeBook-project-react.git
 cd infra
 ```
 - В директории /infra создайте файл .env с переменными окружения

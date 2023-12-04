@@ -70,6 +70,7 @@ http://recipebook.hopto.org/api/docs/redoc.html
 http://recipebook.hopto.org
 
 http://recipebook.hopto.org/admin/
+
 (временно приостановлено, переезжаем)
 
 ### Автор бэкенда и деплой
